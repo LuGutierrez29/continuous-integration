@@ -1,24 +1,24 @@
 version: "3.9"
 services:
-  ssql:
-    build: 
-      context: .
-      dockerfile: Dockerfile.dev
-    container_name: sql
-    restart: always
+  websities:
+    build: .
     ports:
-      - "5432:5432"
+      - "80:80"
+    links:
+      - alumnos
+  go-services:
+    image: golang
+    ports:
+      - "8080:8080"
+    links:
+      - alumnos
+  alumnos:
+    image: postgres:15
+    ports:
+      - "5432:5432"    
     environment:
       - POSTGRES_PASSWORD=root
     volumes:
-      - ./schemas:/var/lib/postgresql/data:rw
-    networks:
-      mysql_network:
-        aliases:
-          - sql_host
+      - ./postgres-data:/var/lib/postgresql/data:rw
 volumes:
-  schemas:
-networks:
-  mysql_network:
-    name: sql_net
-    driver: bridge
+  postgres-data:
