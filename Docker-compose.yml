@@ -6,12 +6,20 @@ services:
       - "80:80"
     links:
       - alumnos
+    networks:
+      mysql_network:
+        aliases:
+          - sql_host
   go-services:
     image: golang
     ports:
       - "8080:8080"
     links:
-      - alumnos
+      - alumnos  
+    networks:
+      mysql_network:
+        aliases:
+          - sql_host
   alumnos:
     image: postgres:15
     ports:
@@ -20,5 +28,13 @@ services:
       - POSTGRES_PASSWORD=root
     volumes:
       - ./postgres-data:/var/lib/postgresql/data:rw
+    networks:
+      mysql_network:
+        aliases:
+          - sql_host
 volumes:
   postgres-data:
+networks:
+  mysql_network:
+    name: sql_net
+    driver: bridge
