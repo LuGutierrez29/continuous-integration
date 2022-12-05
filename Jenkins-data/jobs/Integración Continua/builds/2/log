@@ -1,0 +1,19 @@
+Started by user [8mha:////4BjRks8vEcacTGiNadfnBHVp6hzsO43tE/ZiUGXcBbJ4AAAAnR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyREgZB/dLi1CL9zLyS1PSixJLM/DwAnOlBWsYAAAA=[0mIntegración Continua
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/Integración Continua
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/Integración Continua/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/LuGutierrez29/continuous-integration.git # timeout=10
+Fetching upstream changes from https://github.com/LuGutierrez29/continuous-integration.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.30.2'
+ > git fetch --tags --force --progress -- https://github.com/LuGutierrez29/continuous-integration.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 66a67db0cf720a33c88a301ce794692e6f0f0ba7 (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 66a67db0cf720a33c88a301ce794692e6f0f0ba7 # timeout=10
+Commit message: "Segunda prueba Jenkins modificada"
+ > git rev-list --no-walk 66a67db0cf720a33c88a301ce794692e6f0f0ba7 # timeout=10
+Finished: SUCCESS

@@ -1,5 +1,17 @@
 version: "3.9"
 services:
+  Jenkins:
+    image: jenkins/jenkins
+    ports:
+      - "8085:8080"
+    links:
+      - alumnos
+    volumes:
+      - ./Jenkins-data:/var/jenkins_home
+    networks:
+      mysql_network:
+        aliases:
+          - sql_host
   websities:
     build: .
     ports:
@@ -12,8 +24,6 @@ services:
           - sql_host
   go-services:
     image: golang
-    ports:
-      - "8080:8080"
     links:
       - alumnos  
     networks:
@@ -34,6 +44,7 @@ services:
           - sql_host
 volumes:
   postgres-data:
+  jenkins-data:
 networks:
   mysql_network:
     name: sql_net
