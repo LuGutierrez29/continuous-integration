@@ -44,7 +44,7 @@ services:
           - sql_host
 volumes:
   postgres-data:
-  jenkins-data:
+
 networks:
   mysql_network:
     name: sql_net

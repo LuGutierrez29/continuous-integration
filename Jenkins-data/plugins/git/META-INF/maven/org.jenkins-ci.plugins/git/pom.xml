@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jenkins-ci.plugins</groupId>
   <artifactId>git</artifactId>
-  <version>4.14.1</version>
+  <version>4.14.2</version>
   <packaging>hpi</packaging>
   <name>Git plugin</name>
   <description>Integrates Jenkins with Git SCM</description>
@@ -45,7 +45,7 @@
   <scm>
     <connection>scm:git:https://github.com/jenkinsci/git-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:jenkinsci/git-plugin.git</developerConnection>
-    <tag>git-4.14.1</tag>
+    <tag>git-4.14.2</tag>
     <url>https://github.com/jenkinsci/git-plugin</url>
   </scm>
   <distributionManagement>
@@ -92,7 +92,7 @@
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>script-security</artifactId>
-      <version>1190.v65867a_a_47126</version>
+      <version>1218.v39ca_7f7ed0a_c</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -129,21 +129,21 @@
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>parameterized-trigger</artifactId>
-      <version>2.39</version>
+      <version>2.43.1</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>token-macro</artifactId>
-      <version>308.v4f2b_ed62b_b_16</version>
+      <version>321.vd7cc1f2a_52c8</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>promoted-builds</artifactId>
-      <version>3.10.1</version>
+      <version>3.11</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>

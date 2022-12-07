@@ -114,58 +114,40 @@ const TOOLTIP_BASE = {
   animation: "tooltip",
   appendTo: document.body
 };
-let tooltipInstances = [];
-const globalPlugin = {
-  fn(instance) {
-    return {
-      onCreate() {
-        tooltipInstances = tooltipInstances.concat(instance);
-      },
-      onDestroy() {
-        tooltipInstances = tooltipInstances.filter(i => i !== instance);
-      }
-    };
-  }
-};
-tippy_esm/* default.setDefaultProps */.ZP.setDefaultProps({
-  plugins: [globalPlugin]
-});
 
 /**
- * Registers tooltips for the page
- * If called again, destroys existing tooltips and registers them again (useful for progressive rendering)
- * @param {HTMLElement} container - Registers the tooltips for the given container
+ * Registers tooltips for the given element
+ * If called again, destroys any existing tooltip for the element and
+ * registers them again (useful for progressive rendering)
+ * @param {HTMLElement} element - Registers the tooltips for the given element
  */
-function registerTooltips(container) {
-  if (!container) {
-    container = document;
+function registerTooltip(element) {
+  if (element._tippy) {
+    element._tippy.destroy();
   }
-  tooltipInstances.forEach(instance => {
-    if (instance.props.container === container) {
-      instance.destroy();
-    }
-  });
-  (0,tippy_esm/* default */.ZP)(container.querySelectorAll('[tooltip]:not([tooltip=""]):not([data-html-tooltip])'), Object.assign({
-    content: element => element.getAttribute("tooltip").replace(/<br[ /]?\/?>|\\n/g, "\n"),
-    container: container,
-    onCreate(instance) {
-      instance.reference.setAttribute("title", instance.props.content);
-    },
-    onShow(instance) {
-      instance.reference.removeAttribute("title");
-    },
-    onHidden(instance) {
-      instance.reference.setAttribute("title", instance.props.content);
-    }
-  }, TOOLTIP_BASE));
-  (0,tippy_esm/* default */.ZP)(container.querySelectorAll("[data-html-tooltip]"), Object.assign({
-    content: element => element.getAttribute("data-html-tooltip"),
-    allowHTML: true,
-    container: container,
-    onCreate(instance) {
-      instance.props.interactive = instance.reference.getAttribute("data-tooltip-interactive") === "true";
-    }
-  }, TOOLTIP_BASE));
+  if (element.hasAttribute("tooltip") && !element.hasAttribute("data-html-tooltip")) {
+    (0,tippy_esm/* default */.ZP)(element, Object.assign({
+      content: element => element.getAttribute("tooltip").replace(/<br[ /]?\/?>|\\n/g, "\n"),
+      onCreate(instance) {
+        instance.reference.setAttribute("title", instance.props.content);
+      },
+      onShow(instance) {
+        instance.reference.removeAttribute("title");
+      },
+      onHidden(instance) {
+        instance.reference.setAttribute("title", instance.props.content);
+      }
+    }, TOOLTIP_BASE));
+  }
+  if (element.hasAttribute("data-html-tooltip")) {
+    (0,tippy_esm/* default */.ZP)(element, Object.assign({
+      content: element => element.getAttribute("data-html-tooltip"),
+      allowHTML: true,
+      onCreate(instance) {
+        instance.props.interactive = instance.reference.getAttribute("data-tooltip-interactive") === "true";
+      }
+    }, TOOLTIP_BASE));
+  }
 }
 
 /**
@@ -187,8 +169,8 @@ function hoverNotification(text, element) {
   tooltip.show();
 }
 function tooltips_init() {
-  behavior_shim.specify("[tooltip], [data-html-tooltip]", "-tooltip-", 1000, function () {
-    registerTooltips(null);
+  behavior_shim.specify("[tooltip], [data-html-tooltip]", "-tooltip-", 1000, element => {
+    registerTooltip(element);
   });
   window.hoverNotification = hoverNotification;
 }

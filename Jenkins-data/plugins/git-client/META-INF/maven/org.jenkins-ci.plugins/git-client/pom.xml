@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jenkins-ci.plugins</groupId>
   <artifactId>git-client</artifactId>
-  <version>3.13.0</version>
+  <version>3.13.1</version>
   <packaging>hpi</packaging>
   <name>Jenkins Git client plugin</name>
   <description>The Jenkins Plugins Parent POM Project</description>
@@ -45,7 +45,7 @@
   <scm>
     <connection>scm:git:https://github.com/jenkinsci/git-client-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:jenkinsci/git-client-plugin.git</developerConnection>
-    <tag>git-client-3.13.0</tag>
+    <tag>git-client-3.13.1</tag>
     <url>https://github.com/jenkinsci/git-client-plugin</url>
   </scm>
   <distributionManagement>
@@ -172,7 +172,7 @@
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>script-security</artifactId>
-      <version>1189.vb_a_b_7c8fd5fde</version>
+      <version>1218.v39ca_7f7ed0a_c</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -202,7 +202,7 @@
     <dependency>
       <groupId>io.jenkins</groupId>
       <artifactId>configuration-as-code</artifactId>
-      <version>1559.v38a_b_2e3b_6b_b_7</version>
+      <version>1569.vb_72405b_80249</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
@@ -223,13 +223,6 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.jcip</groupId>
-      <artifactId>jcip-annotations</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.codehaus.mojo</groupId>
