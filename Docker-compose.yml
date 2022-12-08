@@ -18,6 +18,8 @@ services:
       - "80:80"
     links:
       - alumnos
+    volumes:
+      - .:/var/www
     networks:
       mysql_network:
         aliases:
