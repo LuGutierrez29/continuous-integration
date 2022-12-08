@@ -119,7 +119,7 @@ function getByText() {
     if (txt != null && txt != 'undefined' && txt.trim() != '') {
         var search = [];
         for (var i = 0; i < data.length; i++) {
-            if (data[i].Estudiante.toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Estudiante.toLowerCase()) || data[i].Nota.toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Nota.toLowerCase())) {
+            if (data[i].Estudiante.toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Estudiante.toLowerCase()) || data[i].Nota.toString().toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Nota.toString().toLowerCase())) {
                 search.unshift(data[i])
             }
         }
