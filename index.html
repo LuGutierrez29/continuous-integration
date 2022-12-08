@@ -1,43 +1,603 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
-    <title>Continuous Integration</title>
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta Estudiante="viewport" content="width=device-width, initial-scale=1">
+<title>Integración continua</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+    body {
+        color: #566787;
+        background: #f5f5f5;
+        font-family: 'Varela Round', sans-serif;
+        font-size: 13px;
+    }
+    .myAlert-top{
+    position: fixed;
+    top: 5px; 
+    left:2%;
+    width: 96%;
+    }
+    .table-wrapper {
+        background: #fff;
+        padding: 20px 25px;
+        margin: 30px 0;
+        border-radius: 3px;
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+    .table-title {        
+        padding-bottom: 15px;
+        background: #435d7d;
+        color: #fff;
+        padding: 16px 30px;
+        margin: -20px -25px 10px;
+        border-radius: 3px 3px 0 0;
+    }
+    .table-title h2 {
+        margin: 5px 0 0;
+        font-size: 24px;
+    }
+    .table-title .btn-group {
+        float: right;
+    }
+    .table-title .btn {
+        color: #fff;
+        float: right;
+        font-size: 13px;
+        border: none;
+        min-width: 50px;
+        border-radius: 2px;
+        border: none;
+        outline: none !important;
+        margin-left: 10px;
+    }
+    .table-title .btn i {
+        float: left;
+        font-size: 21px;
+        margin-right: 5px;
+    }
+    .table-title .btn span {
+        float: left;
+        margin-top: 2px;
+    }
+    table.table tr th, table.table tr td {
+        border-color: #e9e9e9;
+        padding: 12px 15px;
+        vertical-align: middle;
+    }
+    table.table tr th:last-child {
+        width: 100px;
+    }
+    table.table-striped tbody tr:nth-of-type(odd) {
+        background-color: #fcfcfc;
+    }
+    table.table-striped.table-hover tbody tr:hover {
+        background: #f5f5f5;
+    }
+    table.table th i {
+        font-size: 13px;
+        margin: 0 5px;
+        cursor: pointer;
+    }    
+    #spnSearch{
+    cursor: pointer;
+    }
+    table.table td:last-child i {
+        opacity: 0.9;
+        font-size: 22px;
+        margin: 0 5px;
+    }
+    table.table td a {
+        font-weight: bold;
+        color: #566787;
+        display: inline-block;
+        text-decoration: none;
+        outline: none !important;
+    }
+    table.table td a:hover {
+        color: #2196F3;
+    }
+    table.table td a.edit {
+        color: #FFC107;
+    }
+    table.table td a.delete {
+        color: #F44336;
+    }
+    table.table td i {
+        font-size: 19px;
+    }
+    table.table .avatar {
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    .pagination {
+        float: right;
+        margin: 0 0 5px;
+    }
+    .pagination li a {
+        border: none;
+        font-size: 13px;
+        min-width: 30px;
+        min-height: 30px;
+        color: #999;
+        margin: 0 2px;
+        line-height: 30px;
+        border-radius: 2px !important;
+        text-align: center;
+        padding: 0 6px;
+    }
+    .pagination li a:hover {
+        color: #666;
+    }    
+    .pagination li.active a, .pagination li.active a.pMateria-link {
+        background: #03A9F4;
+    }
+    .pagination li.active a:hover {        
+        background: #0397d6;
+    }
+    .pagination li.disabled i {
+        color: #ccc;
+    }
+    .pagination li i {
+        font-size: 16px;
+        padding-top: 6px
+    }
+    .hint-text {
+        float: left;
+        margin-top: 10px;
+        font-size: 13px;
+    }    
+    /* Custom checkbox */
+    .custom-checkbox {
+        position: relative;
+    }
+    .custom-checkbox input[type="checkbox"] {    
+        opacity: 0;
+        position: absolute;
+        margin: 5px 0 0 3px;
+        z-index: 9;
+    }
+    .custom-checkbox label:before{
+        width: 18px;
+        height: 18px;
+    }
+    .custom-checkbox label:before {
+        content: '';
+        margin-right: 10px;
+        display: inline-block;
+        vertical-align: text-top;
+        background: white;
+        border: 1px solid #bbb;
+        border-radius: 2px;
+        box-sizing: border-box;
+        z-index: 2;
+    }
+    .custom-checkbox input[type="checkbox"]:checked + label:after {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 3px;
+        width: 6px;
+        height: 11px;
+        border: solid #000;
+        border-width: 0 3px 3px 0;
+        transform: inherit;
+        z-index: 3;
+        transform: rotateZ(45deg);
+    }
+    .custom-checkbox input[type="checkbox"]:checked + label:before {
+        border-color: #03A9F4;
+        background: #03A9F4;
+    }
+    .custom-checkbox input[type="checkbox"]:checked + label:after {
+        border-color: #fff;
+    }
+    .custom-checkbox input[type="checkbox"]:disabled + label:before {
+        color: #b8b8b8;
+        cursor: auto;
+        box-shadow: none;
+        background: #ddd;
+    }
+    /* Modal styles */
+	
+	.modal {
+	  text-align: center;
+	  padding: 0!important;
+	}
+
+	.modal:before {
+	  content: '';
+	  display: inline-block;
+	  height: 100%;
+	  vertical-align: middle;
+	  margin-right: -4px;
+	}
+
+	.modal-dialog {
+	  display: inline-block;
+	  text-align: left;
+	  vertical-align: middle;
+	}
+	
+    .modal .modal-dialog {
+        max-width: 400px;
+    }
+    .modal .modal-header, .modal .modal-body, .modal .modal-footer {
+        padding: 20px 30px;
+    }
+    .modal .modal-content {
+        border-radius: 3px;
+    }
+    .modal .modal-footer {
+        background: #ecf0f1;
+        border-radius: 0 0 3px 3px;
+    }
+    .modal .modal-title {
+        display: inline-block;
+    }
+    .modal .form-control {
+        border-radius: 2px;
+        box-shadow: none;
+        border-color: #dddddd;
+    }
+    .modal textarea.form-control {
+        resize: vertical;
+    }
+    .modal .btn {
+        border-radius: 2px;
+        min-width: 100px;
+    }    
+    .modal form label {
+        font-weight: normal;
+    }
+	@media (max-width:1200px){
+	.table-title .col-sm-12 {
+    width:25%;
+		}
+	}
+	@media (max-width:767px){
+		.table-title .col-sm-12 {
+    width:100%;
+		}
+		.table-title .btn{
+			width: 100%;
+			margin-top: 10px;
+		}
+	}
+	@media (max-width:360px){
+		[id^=deleteEstudianteModa] .modal .modal-header, .modal .modal-body, .modal .modal-footer {
+			padding: 20px 20px;
+		}
+	}
+</style>
+<script type="text/javascript">
+var data;
+var ActivePMateriaNumber = 1;
+var PMateriaSize = 5;
+var PMateriaTo;
+var PMateriaFrom;
+var rowCount;
+var MaxId = 0 ;
+var SuccessTime = 3000;
+$(document).ready(function(){
+console.log($(window).width() + 'x' + $(window).height());
+  data =
+   [
+{"id":2,"Estudiante":"Wenonah","Notas":"Matemáticas III","Materia":60}
+,{"id":3,"Estudiante":"Murdock","Notas":"Structural Engineer","Materia":33}
+,{"id":4,"Estudiante":"Reinhold","Notas":"SQL","Materia":53}
+,{"id":5,"Estudiante":"Enoch","Notas":"Developer III","Materia":39}
+,{"id":6,"Estudiante":"Bonita","Notas":"Matemáticas","Materia":68}
+,{"id":7,"Estudiante":"Tod","Notas":"Systems Administrator III","Materia":86}
+,{"id":8,"Estudiante":"Patrick","Notas":"Matemáticas","Materia":47}
+,{"id":9,"Estudiante":"Layla","Notas":"Assistant Professor","Materia":7}
+,{"id":10,"Estudiante":"Dee dee","Notas":"Staff Accountant IV","Materia":10}
+,{"id":11,"Estudiante":"Luciano","Notas":"Matemáticas","Materia":75}
+,{"id":12,"Estudiante":"Martainn","Notas":"Mechanical Systems Engineer","Materia":11}
+,{"id":13,"Estudiante":"Grete","Notas":"Automation Specialist I","Materia":5}
+,{"id":14,"Estudiante":"Roderick","Notas":"Software I","Materia":73}
+,{"id":15,"Estudiante":"Obadias","Notas":"Staff Accountant I","Materia":65}
+,{"id":16,"Estudiante":"Norri","Notas":"Matemáticas","Materia":6}
+,{"id":17,"Estudiante":"Annecorinne","Notas":"Teacher","Materia":47}
+,{"id":18,"Estudiante":"Vikki","Notas":"Electrical Engineer","Materia":88}
+,{"id":19,"Estudiante":"Austin","Notas":"Web Developer III","Materia":49}
+,{"id":20,"Estudiante":"Cindie","Notas":"Staff Accountant III","Materia":19}
+   ];
+   getByText();
+   
+});
+
+function fncPagingClick(anchor)
+{
+    $('#ulPagination .active').removeClass('active');
+    $(anchor).parent().addClass('active');
+	ActivePMateriaNumber = parseInt($(anchor).text());
+    fnPagination(ActivePMateriaNumber);
+}
+
+function getIndexOf(el) {
+  for (var i=0; i<data.length; i++){
+     if(data[i].id==el){
+       return i;
+     }     
+  }  
+  return -1;
+}
+
+function Bind(myData){
+	$("#tblEstudiante tbody tr").remove();
+	if(myData.length > 0){
+	$('#tblEstudiante tfoot').hide();
+	$('#divPaging').show();
+
+	$.each(myData, function(key, val) {
+		var tr=$('<tr></tr>');
+		var id;
+		$.each(val, function(k, v){
+			if(k != 'id'){
+			$('<td>'+v+'</td>').appendTo(tr);
+			}
+			else{
+			  id = v;
+			  MaxId = Math.max(id,MaxId);
+			}
+		});
+		$('<td><a href="#editEstudianteModal" onclick="fncEdit(\''+id+'\')" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Edit"></i></a><a href="#deleteEstudianteModal'+id+'" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="" data-original-title="Delete"></i></a><div id="deleteEstudianteModal'+id+'" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Delete Estudiante</h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>                     </div>                     <div class="modal-body">                                             <p>Are you sure you want to delete these Records?</p>                         <p class="text-warning"><small>This action cannot be undone.</small></p></div><div class="modal-footer"><input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel"><input type="button" class="btn btn-danger" onclick="fncDelete(\''+id+'\')" value="Delete"> </div> </div></div> </div></td>').appendTo(tr);		
+		tr.appendTo('#tblEstudiante tbody');
+	});
+	rowCount = $('#tblEstudiante >tbody >tr').length;
+	fnPagination(ActivePMateriaNumber);
+	var PMateria = Math.ceil(parseInt(rowCount) / PMateriaSize);
+	$("#bTotal").text(rowCount);
+	if(PMateria > 0){
+		$("#ulPagination li").remove();
+		for(var i=1;i<= PMateria;i++){
+			var ul = $('#ulPagination');
+			$('<li class="pMateria-item '+((i == ActivePMateriaNumber) ? "active" : "")+'"><a href="javascript:void(0)" onclick="fncPagingClick(this)" class="pMateria-link">'+i+'</a></li>').appendTo(ul);
+		}
+	}
+	}
+	else
+	{
+		$('#tblEstudiante tfoot').show();
+		$('#divPaging').hide();
+	}
+}
+
+function fnPagination(num)
+{
+	PMateriaFrom = ((num - 1) * PMateriaSize);
+	PMateriaTo = PMateriaFrom + PMateriaSize;
+	PMateriaTo = (PMateriaTo > rowCount) ? rowCount : PMateriaTo;
+	$("#bFrom").text((PMateriaFrom+1));
+	$("#bTo").text(PMateriaTo);
+	$("#tblEstudiante tbody tr").hide();
+	$('#tblEstudiante tr:gt('+(PMateriaFrom)+'):lt('+PMateriaSize+')').show(100);
+}
+
+function onlyNumbers(evt) {
+    var evtobj = window.event ? event : evt;
+    var charCode = evtobj.charCode ? evtobj.charCode : evtobj.keyCode;
+    if (charCode > 47 && charCode < 58 || charCode == 43 || charCode == 45 || charCode == 32 || charCode == 8 || charCode == 9 || charCode == 2 || charCode == 3 || charCode == 14 || charCode == 15 || charCode == 46 || charCode == 36 || charCode == 35)
+        return true;
+    else
+        return false;
+}
+
+function showMessMateria(msg)
+{
+	$(".myAlert-top").show(800);
+	$("#spnMsg").text(msg);
+	  setTimeout(function(){
+		$(".myAlert-top").hide(800); 
+	  }, SuccessTime);
+}
+
+function getByText(){
+	var txt = $('#txtSearch').val();
+	if(txt != null && txt != 'undefined' && txt.trim() != '')
+	{
+		var search = [];
+		for (var i=0; i<data.length; i++){
+			 if(data[i].Estudiante.toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Estudiante.toLowerCase()) || data[i].Notas.toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Notas.toLowerCase())){
+			   search.unshift(data[i])
+			 }     
+		  }
+		Bind(search);
+	}
+	else{
+		Bind(data);
+	}  
+	$("#txtSearch").blur(); 
+}
+
+function BindEnter(event){
+    if (event.which == 13 || event.keyCode == 13) {
+        getByText();
+    }
+}
+
+function fncUpdate(index){
+	event.preventDefault();
+	data[index].Estudiante = $('#txtEditEstudiante').val();
+	data[index].Notas = $('#txtEditNotas').val();
+	data[index].Materia = $('#txtEditMateria').val();
+	$('#editEstudianteModal').modal('toggle');
+    $('#editEstudianteModal input:text').val('');
+    showMessMateria('row updated successfully.');
+    getByText();
+}
+
+function fncEdit(id){
+	var index = getIndexOf(id);
+	if(index > -1)
+	{
+		$('#txtEditEstudiante').val(data[index].Estudiante);
+		$('#txtEditNotas').val(data[index].Notas);
+		$('#txtEditMateria').val(data[index].Materia);
+		$('#editform').attr('onSubmit','fncUpdate(\''+index+'\')');
+	}
+}
+
+function fncAdd(){
+	event.preventDefault();
+	if ( $("#txtEstudiante").val().length > 0 )	{
+		data.unshift(
+		{"id":(MaxId+1),"Estudiante":$('#txtEstudiante').val(),"Notas":$('#txtNotas').val(),"Materia":$('#txtMateria').val()}
+		);
+		ActivePMateriaNumber = 1;
+		$('#addEstudianteModal').modal('toggle');
+		$('#addEstudianteModal input:text').val('');  
+		showMessMateria('row added successfully.');
+		getByText();
+	}
+}
+
+function fncDelete(val,modal){
+	event.preventDefault();
+	var index = getIndexOf(val);
+	if(index > -1)
+	{
+		data.splice(index, 1); 
+		$('#deleteEstudianteModal'+val).modal('hide');
+		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();
+		showMessMateria('row deleted successfully.');
+		getByText();
+	}
+}
+</script>
 </head>
 <body>
-    <header>
-        <div class="box">
-            <h1 class="logo"><img src="images/logo.png"></h1>
-            <h1 id="title">Continuous Integration</h1>
-                <nav>
-                    <ul>
-                        <li><a href="index.html">Home </a></li>
-                    </ul>
-                </nav>
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Estudiantes <b>Politecnico Grancolombiano</b></h2>
+                    </div>
+                    <div class="col-sm-3">
+                    <div class="input-group">
+                        <input type="text" id="txtSearch" class="form-control" onkeydown="Javascript: if (event.keyCode==13) getByText();" placeholder="Search"/>
+                        <span onclick="getByText()" id="spnSearch" class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <a href="#addEstudianteModal" class="btn btn-success" data-toggle="modal"><i class="material-icons"></i> <span>Agregar nuevo Estudiante</span></a>
+                        <!-- <a href="#deleteEstudianteModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons"></i> <span>Delete</span></a>                         -->
+                    </div>
+                </div>
+            </div>
+			<div class="table-responsive">
+            <table id="tblEstudiante" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Estudiante</th>
+                        <th>Materias</th>
+                        <th>Notas</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                <tr>
+                        <th colspan="4">
+							
+					<div class="alert alert-danger">No records available</div>
+					
+					</th>
+                    </tr>
+                </tfoot>
+            </table>
+			</div>
+            <div class="clearfix" id='divPaging'>
+				<div class="row">
+                    <div class="col-lg-6 col-sm-12">
+						<div class="hint-text">Showing <b id="bFrom">5</b> to <b id="bTo">5</b> of <b id="bTotal">25</b> entries</div>
+					</div>
+				
+				<div class="col-lg-6 col-sm-12">
+					<ul id='ulPagination' class="pagination">
+					</ul>
+				</div>
+				</div>
+            </div>
+			
         </div>
-    </header>
-    <img class="banner" src="banner/banner.png">
-
-    <main>
-        <section class="principal">
-
-            <h1>Aqui se va ha poner los servicios</h1>
-            <h1> Prueba realizada para el jenkins</h1>
-            <h1> segunda Prueba realizada para el jenkins modificada</h1>
-            <h1> Tercer prueba docker y jenkins</h1>
-        </section>
-
-
-
-
-    </main>
-</body>
-</html>
+    </div>
+    <!-- Edit Modal HTML -->
+    <div id="addEstudianteModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form onsubmit="fncAdd()">
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Add Estudiante</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">                    
+                        <div class="form-group">
+                            <label>Estudiante</label>
+                            <input type="text" id="txtEstudiante" class="form-control" required="">
+                        </div>
+                        <div class="form-group">
+                            <label>Materia</label>
+                            <input type="text" id="txtNotas"  class="form-control" required="" >
+                        </div>
+                        <div class="form-group">
+                            <label>Notas</label>
+                            <input type="text" class="form-control" id="txtMateria"  required="" maxlength="3" onkeypress="return onlyNumbers(event);" >
+                        </div>                    
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-success" value="Add">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal HTML -->
+    <div id="editEstudianteModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id='editform'>
+                    <div class="modal-header">                        
+                        <h4 class="modal-title">Edit Estudiante</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">                    
+                        <div class="form-group">
+                            <label>Estudiante</label>
+                            <input type="text" id="txtEditEstudiante" class="form-control" required="">
+                        </div>
+                        <div class="form-group">
+                            <label>Materia</label>
+                            <input type="text" id="txtEditNotas"  class="form-control" required="" >
+                        </div>
+                        <div class="form-group">
+                            <label>Nota</label>
+                            <input type="text" class="form-control" id="txtEditMateria"  required="" maxlength="3" onkeypress="return onlyNumbers(event);" >
+                        </div>                    
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-info" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+    <div class="myAlert-top alert alert-success" style="display:none">
+            <strong>Success!</strong> <span id="spnMsg"></span>
+        </div>
+</body></html>
