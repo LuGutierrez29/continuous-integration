@@ -9,7 +9,7 @@ var SuccessTime = 3000;
 $(document).ready(function () {
     data = [
         { "id": 2, "Estudiante": "Wenonah", "Materia": "Matemáticas III", "Nota": 6 },
-        { "id": 3, "Estudiante": "Murdock", "Notas": "Structural Engineer", "Nota": 3.3 }
+        { "id": 3, "Estudiante": "Murdock", "Materia": "Structural Engineer", "Nota": 3.3 }
         , { "id": 4, "Estudiante": "Reinhold", "Materia": "SQL", "Nota": 5.3 }
         , { "id": 5, "Estudiante": "Enoch", "Materia": "Developer III", "Nota": 3.9 }
         , { "id": 6, "Estudiante": "Bonita", "Materia": "Matemáticas", "Nota": 6.8 }
@@ -119,7 +119,7 @@ function getByText() {
     if (txt != null && txt != 'undefined' && txt.trim() != '') {
         var search = [];
         for (var i = 0; i < data.length; i++) {
-            if (data[i].Estudiante.toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Estudiante.toLowerCase()) || data[i].Notas.toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Notas.toLowerCase())) {
+            if (data[i].Estudiante.toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Estudiante.toLowerCase()) || data[i].Nota.toLowerCase().includes(txt.toLowerCase()) || txt.toLowerCase().includes(data[i].Nota.toLowerCase())) {
                 search.unshift(data[i])
             }
         }
@@ -139,7 +139,7 @@ function BindEnter(event) {
 function fncUpdate(index) {
     event.preventDefault();
     data[index].Estudiante = $('#txtEditEstudiante').val();
-    data[index].Notas = $('#txtEditNotas').val();
+    data[index].Nota = $('#txtEditNotas').val();
     data[index].Materia = $('#txtEditMateria').val();
     $('#editEstudianteModal').modal('toggle');
     $('#editEstudianteModal input:text').val('');
@@ -151,7 +151,7 @@ function fncEdit(id) {
     var index = getIndexOf(id);
     if (index > -1) {
         $('#txtEditEstudiante').val(data[index].Estudiante);
-        $('#txtEditNotas').val(data[index].Notas);
+        $('#txtEditNotas').val(data[index].Nota);
         $('#txtEditMateria').val(data[index].Materia);
         $('#editform').attr('onSubmit', 'fncUpdate(\'' + index + '\')');
     }
@@ -161,7 +161,7 @@ function fncAdd() {
     event.preventDefault();
     if ($("#txtEstudiante").val().length > 0) {
         data.unshift(
-            { "id": (MaxId + 1), "Estudiante": $('#txtEstudiante').val(), "Notas": $('#txtNotas').val(), "Materia": $('#txtMateria').val() }
+            { "id": (MaxId + 1), "Estudiante": $('#txtEstudiante').val(), "Nota": $('#txtNotas').val(), "Materia": $('#txtMateria').val() }
         );
         ActivePMateriaNumber = 1;
         $('#addEstudianteModal').modal('toggle');

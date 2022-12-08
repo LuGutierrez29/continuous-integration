@@ -1,0 +1,23 @@
+commit 51b11ecbed34d93bca9c869aef5d5e4ed6157b8e
+tree bfae7140c816f6c7b4028ffe89c4d5eb2c693a87
+parent 58b88d9e47fd614a7c3dcc89ee50c6a5e196a1f8
+author Nikollai Hernandez G <nikollaihernandez@gmail.com> 2022-12-08 11:46:59 -0500
+committer Nikollai Hernandez G <nikollaihernandez@gmail.com> 2022-12-08 11:46:59 -0500
+
+    Pagina web fixes
+
+
+:000000 100644 0000000000000000000000000000000000000000 c58e597f362d65431c2e48e4cbebaf4acfe5ab12 A	Jenkins-data/logs/tasks/Periodic background build discarder.log
+:100644 100644 5be23f6a563831c8e27bcb40f78e9b8e466235cd c5e93491e7d3ba71016e598d382941e7788e209a M	index.html
+:000000 100644 0000000000000000000000000000000000000000 3d85df049b85fc9c15619066a9f8c545944c24f9 A	scripts.js
+:100644 100644 7269e5cebade1d63b280d336108747f9ac378156 9e8b8adef4056109adde46c9b74a5a40011d62cb M	style.css
+commit 58b88d9e47fd614a7c3dcc89ee50c6a5e196a1f8
+tree 4c61ba444853774e06f2c920e4d8ab5a7f2ed485
+parent 3c59e7223b7a49825bac95358ed1b63107691071
+author Nikollai Hernandez G <nikollaihernandez@gmail.com> 2022-12-08 10:57:18 -0500
+committer Nikollai Hernandez G <nikollaihernandez@gmail.com> 2022-12-08 10:57:18 -0500
+
+    Pagina web UI
+
+
+:100644 100644 6e5adece8754b67f8649647ba80f2c5cda290906 5be23f6a563831c8e27bcb40f78e9b8e466235cd M	index.html
